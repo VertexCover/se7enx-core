@@ -5,15 +5,18 @@ import com.vertexcover.se7enx.pojo.wrappers.TransactionLogs;
 
 public class ResponseBuilder {
 
-	public static String respond(final TransactionLogs transactionLogs, final boolean prettify) {
+	public static String respond(final Object responseObject, final Class cls, final String responseType, final boolean prettify) {
 		Response response = new Response();
-		response.setResponseType("transactionLogs");
+		response.setResponseType(responseType);
 		response.setResponsePrettify(prettify);
-		if(transactionLogs == null)
+		if(responseObject == null)
 			response.setStatus(false);
 		else
 			response.setStatus(true);
-		response.setResponse(JsonObjectMapper.toJsonString(transactionLogs, prettify));
+		response.setResponse(JsonObjectMapper.toJsonString(responseObject, prettify));
 		return JsonObjectMapper.toJsonString(response, prettify);
 	}
+	
+	
+	
 }

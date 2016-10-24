@@ -40,9 +40,11 @@ public class CycleDetector {
 	    
 	    visitedSet.add(userId);
 	    HashMap<Long, Double> friends = adjacencyMap.get(userId);
-	    for (Map.Entry<Long, Double> entry : friends.entrySet()) {
-	    	long friendId = entry.getKey();
-	    	traverseGraph(friendId);
+	    if(friends != null) {
+		    for (Map.Entry<Long, Double> entry : friends.entrySet()) {
+		    	long friendId = entry.getKey();
+		    	traverseGraph(friendId);
+		    }
 	    }
 	    
 	    visitedSet.remove(userId);

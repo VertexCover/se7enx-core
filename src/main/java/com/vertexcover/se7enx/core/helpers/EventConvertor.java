@@ -119,11 +119,14 @@ public class EventConvertor {
 	}
 	
 	
-	public static Event toEvents(final HashMap<Long, HashMap<Long, Double>> eventInfoMap) {
+	public static Event toEvents(final HashMap<Long, HashMap<Long, Double>> transactionLogsMap) {
 		HashMap<Long, Double> pendingAmountOfUsers = new HashMap<Long, Double>();
-		for (Map.Entry<Long, HashMap<Long, Double>> entryOuter : eventInfoMap.entrySet()) {
+		for (Map.Entry<Long, HashMap<Long, Double>> entryOuter : transactionLogsMap.entrySet()) {
 		    long fromUserId = entryOuter.getKey();
 		    HashMap<Long, Double> recievers = entryOuter.getValue();
+		    if(recievers == null)
+		    	continue; 
+		    
 		    for (Map.Entry<Long, Double> entryInner : recievers.entrySet()) {
 		    	long toUserId = entryInner.getKey();
 		    	double pendingAmount = entryInner.getValue();

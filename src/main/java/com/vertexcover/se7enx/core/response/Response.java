@@ -3,7 +3,7 @@ package com.vertexcover.se7enx.core.response;
 public class Response {
 
 	private boolean status;
-	private String response;
+	private Object response;
 	private String responseType;
 	private boolean responsePrettify;
 	
@@ -14,10 +14,10 @@ public class Response {
 		this.status = status;
 	}
 	
-	public String getResponse() {
+	public Object getResponse() {
 		return response;
 	}
-	public void setResponse(String response) {
+	public void setResponse(Object response) {
 		this.response = response;
 	}
 	
