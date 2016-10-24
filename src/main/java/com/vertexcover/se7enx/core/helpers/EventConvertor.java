@@ -55,12 +55,13 @@ public class EventConvertor {
 			eventUnitList.add(eventUnit);
 		}
 		
-		Event events = new Event();
-		events.setEventMode(EventConstants.INDIVIDUAL_EXPENSES_MODE);
-		events.setEventUnits(eventUnitList);
-		return events;
+		Event event = new Event();
+		event.setEventMode(EventConstants.INDIVIDUAL_EXPENSES_MODE);
+		event.setEventUnits(eventUnitList);
+		return event;
 	}
 
+	
 	
 	public static Event toEvents(final String eventInfoJsonString, final String eventMode) {
 		try {
@@ -82,6 +83,7 @@ public class EventConvertor {
 	
 	
 	
+
 	public static Event toEvents(final TransactionLogs transactionLogs) {
 		HashMap<Long, Double> pendingAmountOfUsers = new HashMap<Long, Double>();
 		for(TransactionLogUnit transactionLogUnit : transactionLogs.getTransactionLogs()) {
@@ -110,9 +112,49 @@ public class EventConvertor {
 		    eventUnitList.add(eventUnit);
 		}
 		
-		Event events = new Event();
-		events.setEventMode(EventConstants.DEFAULT_MODE);
-		events.setEventUnits(eventUnitList);
-		return events;
+		Event event = new Event();
+		event.setEventMode(EventConstants.DEFAULT_MODE);
+		event.setEventUnits(eventUnitList);
+		return event;
 	}
+	
+	
+	public static Event toEvents(final HashMap<Long, HashMap<Long, Double>> eventInfoMap) {
+		HashMap<Long, Double> pendingAmountOfUsers = new HashMap<Long, Double>();
+		for (Map.Entry<Long, HashMap<Long, Double>> entryOuter : eventInfoMap.entrySet()) {
+		    long fromUserId = entryOuter.getKey();
+		    HashMap<Long, Double> recievers = entryOuter.getValue();
+		    for (Map.Entry<Long, Double> entryInner : recievers.entrySet()) {
+		    	long toUserId = entryInner.getKey();
+		    	double pendingAmount = entryInner.getValue();
+				if(pendingAmount == 0)
+					continue;
+				
+				if(!pendingAmountOfUsers.containsKey(fromUserId))
+					pendingAmountOfUsers.put(fromUserId, (double) 0);
+				pendingAmountOfUsers.put(fromUserId, pendingAmountOfUsers.get(fromUserId) - pendingAmount);
+				
+				if(!pendingAmountOfUsers.containsKey(toUserId))
+					pendingAmountOfUsers.put(toUserId, (double) 0);
+				pendingAmountOfUsers.put(toUserId, pendingAmountOfUsers.get(toUserId) + pendingAmount);
+		    }
+		}
+	
+		
+		List<EventUnit> eventUnitList = new ArrayList<EventUnit>();
+		for (Map.Entry<Long, Double> entry : pendingAmountOfUsers.entrySet()) {
+		    long userId = entry.getKey();
+		    double pendingAmount = entry.getValue();
+		    EventUnit eventUnit = new EventUnit();
+		    eventUnit.setUserId(userId);
+		    eventUnit.setAmountToSettle(pendingAmount);
+		    eventUnitList.add(eventUnit);
+		}
+		
+		Event event = new Event();
+		event.setEventMode(EventConstants.DEFAULT_MODE);
+		event.setEventUnits(eventUnitList);
+		return event;
+	}
+	
 }

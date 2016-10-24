@@ -1,5 +1,7 @@
 package com.vertexcover.se7enx.core.api;
 
+import java.util.HashMap;
+
 import com.vertexcover.se7enx.core.constants.EventConstants;
 import com.vertexcover.se7enx.core.helpers.EventConvertor;
 import com.vertexcover.se7enx.core.helpers.JsonObjectMapper;
@@ -16,10 +18,25 @@ public class CoreAPI {
 		return ResponseBuilder.respond(transactionLogs, prettify);
 	}
 	
+	
 	public static String getCyclelessTransactionLogs(final String transactionLogsJsonString, final boolean prettify) {
 		TransactionLogs transactionLogs = (TransactionLogs) JsonObjectMapper.toObject(transactionLogsJsonString, TransactionLogs.class);
-		Event events = EventConvertor.toEvents(transactionLogs);
-		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(events, EventConstants.DEFAULT_MODE);
+		Event event = EventConvertor.toEvents(transactionLogs);
+		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
 		return ResponseBuilder.respond(cyclelessTransactionLogs, prettify);
 	} 
+	
+	
+	public static String getCyclelessTransactionLogs(final HashMap<Long, HashMap<Long, Double>> eventInfoMap,  final boolean prettify) {
+		Event event = EventConvertor.toEvents(eventInfoMap);
+		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
+		return ResponseBuilder.respond(cyclelessTransactionLogs, prettify);
+	}
+	
+	
+	public static String doesCycleExist(final HashMap<Long, HashMap<Long, Double>> adjacencyMap,  final boolean prettify) {
+		
+		
+		return "";
+	}
 }
