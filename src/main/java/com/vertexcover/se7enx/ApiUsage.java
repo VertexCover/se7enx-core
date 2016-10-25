@@ -24,7 +24,7 @@ public class ApiUsage
     	*/
     	
 
-    	/*
+    	
     	HashMap<Long, HashMap<Long, Double>> adjacencyMap = new HashMap<Long, HashMap<Long,Double>>();
     	HashMap<Long, Double> oneFriends = new HashMap<Long, Double>();
     	oneFriends.put((long) 2, 10.0);
@@ -35,7 +35,7 @@ public class ApiUsage
     	adjacencyMap.put((long) 2, twoFriends);
     	
     	HashMap<Long, Double> threeFriends = new HashMap<Long, Double>();
-    	threeFriends.put((long) 1, 12.0);
+    	threeFriends.put((long) 1, 10.0);
     	adjacencyMap.put((long) 3, threeFriends);
     	
     	String response = CoreAPI.doesCycleExist(adjacencyMap, true);
@@ -44,7 +44,7 @@ public class ApiUsage
     	String responseTransactions = CoreAPI.getCyclelessTransactionLogs(adjacencyMap, false);
     	Response responseObj = (Response)JsonObjectMapper.toObject(responseTransactions, Response.class);
     	System.out.println(responseObj.getResponse());
-    	*/
+    	
     	
     	
     	

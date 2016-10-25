@@ -7,6 +7,7 @@ import com.vertexcover.se7enx.core.graph.Graph;
 import com.vertexcover.se7enx.core.helpers.EventConvertor;
 import com.vertexcover.se7enx.core.helpers.JsonObjectMapper;
 import com.vertexcover.se7enx.core.helpers.TransactionCalculator;
+import com.vertexcover.se7enx.core.helpers.TransactionLogConverter;
 import com.vertexcover.se7enx.core.response.ResponseBuilder;
 import com.vertexcover.se7enx.pojo.wrappers.Event;
 import com.vertexcover.se7enx.pojo.wrappers.TransactionLogs;
@@ -24,14 +25,16 @@ public class CoreAPI {
 		TransactionLogs transactionLogs = (TransactionLogs) JsonObjectMapper.toObject(transactionLogsJsonString, TransactionLogs.class);
 		Event event = EventConvertor.toEvents(transactionLogs);
 		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		return ResponseBuilder.respond(cyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
+		TransactionLogs mergedCyclelessTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogs, cyclelessTransactionLogs);
+		return ResponseBuilder.respond(mergedCyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
 	} 
 	
 	
 	public static String getCyclelessTransactionLogs(final HashMap<Long, HashMap<Long, Double>> transactionLogsMap,  final boolean prettify) {
 		Event event = EventConvertor.toEvents(transactionLogsMap);
 		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		return ResponseBuilder.respond(cyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
+		TransactionLogs mergedCyclelessTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogsMap, cyclelessTransactionLogs);
+		return ResponseBuilder.respond(mergedCyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
 	}
 	
 	
@@ -39,8 +42,4 @@ public class CoreAPI {
 		return ResponseBuilder.respond(Graph.doesCycleExist(adjacencyMap), Boolean.class ,"doesCycleExists", prettify);
 	}
 	
-	public static String mergeTransactionLogs(final HashMap<Long, HashMap<Long, Double>> baseTransactionLogsMap, 
-			final HashMap<Long, HashMap<Long, Double>> pathTransactionLogsMap) {
-		return "";
-	}
 }
