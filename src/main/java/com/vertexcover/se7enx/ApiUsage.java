@@ -41,7 +41,7 @@ public class ApiUsage
     	String response = CoreAPI.doesCycleExist(adjacencyMap, true);
     	System.out.println(response);
     	
-    	String responseTransactions = CoreAPI.getCyclelessTransactionLogs(adjacencyMap, false);
+    	String responseTransactions = CoreAPI.reoptimizeTransactionLogs(adjacencyMap, false);
     	Response responseObj = (Response)JsonObjectMapper.toObject(responseTransactions, Response.class);
     	System.out.println(responseObj.getResponse());
     	

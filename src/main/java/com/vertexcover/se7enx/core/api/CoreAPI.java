@@ -3,6 +3,7 @@ package com.vertexcover.se7enx.core.api;
 import java.util.HashMap;
 
 import com.vertexcover.se7enx.core.constants.EventConstants;
+import com.vertexcover.se7enx.core.constants.TransactionLogConstants;
 import com.vertexcover.se7enx.core.graph.Graph;
 import com.vertexcover.se7enx.core.helpers.EventConvertor;
 import com.vertexcover.se7enx.core.helpers.JsonObjectMapper;
@@ -14,27 +15,27 @@ import com.vertexcover.se7enx.pojo.wrappers.TransactionLogs;
 
 public class CoreAPI {
 	
-	public static String getTransactionLog(final String eventInfoJsonString, final String eventMode, final boolean prettify) {
+	public static String getOptimalTransactionLog(final String eventInfoJsonString, final String eventMode, final boolean prettify) {
 		Event event = EventConvertor.toEvents(eventInfoJsonString, eventMode);
-		TransactionLogs transactionLogs = TransactionCalculator.getTransactionLogs(event, eventMode);
-		return ResponseBuilder.respond(transactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
+		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, eventMode);
+		return ResponseBuilder.respond(optimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
 	}
 	
 	
-	public static String getCyclelessTransactionLogs(final String transactionLogsJsonString, final boolean prettify) {
+	public static String reoptimizeTransactionLogs(final String transactionLogsJsonString, final boolean prettify) {
 		TransactionLogs transactionLogs = (TransactionLogs) JsonObjectMapper.toObject(transactionLogsJsonString, TransactionLogs.class);
 		Event event = EventConvertor.toEvents(transactionLogs);
-		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		TransactionLogs mergedCyclelessTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogs, cyclelessTransactionLogs);
-		return ResponseBuilder.respond(mergedCyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
+		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
+		TransactionLogs mergedOptimalTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogs, optimalTransactionLogs);
+		return ResponseBuilder.respond(mergedOptimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
 	} 
 	
 	
-	public static String getCyclelessTransactionLogs(final HashMap<Long, HashMap<Long, Double>> transactionLogsMap,  final boolean prettify) {
+	public static String reoptimizeTransactionLogs(final HashMap<Long, HashMap<Long, Double>> transactionLogsMap,  final boolean prettify) {
 		Event event = EventConvertor.toEvents(transactionLogsMap);
-		TransactionLogs cyclelessTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		TransactionLogs mergedCyclelessTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogsMap, cyclelessTransactionLogs);
-		return ResponseBuilder.respond(mergedCyclelessTransactionLogs, TransactionLogs.class, "transactionLogs",  prettify);
+		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
+		TransactionLogs mergedOptimalTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogsMap, optimalTransactionLogs);
+		return ResponseBuilder.respond(mergedOptimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
 	}
 	
 	
