@@ -1,6 +1,6 @@
 package com.vertexcover.se7enx.pojo.units;
 
-public class EventUnit {
+public class EventEntry {
 	
 	private long userId;
 	private double amountPaid;

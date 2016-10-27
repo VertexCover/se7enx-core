@@ -1,14 +1,14 @@
 package com.vertexcover.se7enx.pojo.units;
 
-public class TransactionLogUnit {
+public class Transaction {
 
 	private long fromUserId;
 	private long toUserId;
 	private double amountToBePaid;
 	
-	public TransactionLogUnit() {}
+	public Transaction() {}
 	
-	public TransactionLogUnit(long fromUserId, long toUserId, double amountToBePaid) {
+	public Transaction(long fromUserId, long toUserId, double amountToBePaid) {
 		this.fromUserId = fromUserId;
 		this.toUserId = toUserId;
 		this.amountToBePaid = amountToBePaid;

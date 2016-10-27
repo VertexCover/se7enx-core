@@ -3,39 +3,39 @@ package com.vertexcover.se7enx.core.api;
 import java.util.HashMap;
 
 import com.vertexcover.se7enx.core.constants.EventConstants;
-import com.vertexcover.se7enx.core.constants.TransactionLogConstants;
+import com.vertexcover.se7enx.core.constants.TransactionConstants;
 import com.vertexcover.se7enx.core.graph.Graph;
 import com.vertexcover.se7enx.core.helpers.EventConvertor;
 import com.vertexcover.se7enx.core.helpers.JsonObjectMapper;
 import com.vertexcover.se7enx.core.helpers.TransactionCalculator;
-import com.vertexcover.se7enx.core.helpers.TransactionLogConverter;
+import com.vertexcover.se7enx.core.helpers.TransactionConverter;
 import com.vertexcover.se7enx.core.response.ResponseBuilder;
 import com.vertexcover.se7enx.pojo.wrappers.Event;
-import com.vertexcover.se7enx.pojo.wrappers.TransactionLogs;
+import com.vertexcover.se7enx.pojo.wrappers.Transactions;
 
 public class CoreAPI {
 	
-	public static String getOptimalTransactionLog(final String eventInfoJsonString, final String eventMode, final boolean prettify) {
-		Event event = EventConvertor.toEvents(eventInfoJsonString, eventMode);
-		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, eventMode);
-		return ResponseBuilder.respond(optimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
+	public static String getOptimalTransactions(final String eventInfoJson, final String eventMode, final boolean prettify) {
+		Event event = EventConvertor.convert(eventInfoJson, eventMode);
+		Transactions optimalTransactions = TransactionCalculator.getTransactions(event, eventMode);
+		return ResponseBuilder.respond(optimalTransactions, Transactions.class, TransactionConstants.OPTIMAL_TRANSACTION_RESPONSE_TYPE,  prettify);
 	}
 	
 	
-	public static String reoptimizeTransactionLogs(final String transactionLogsJsonString, final boolean prettify) {
-		TransactionLogs transactionLogs = (TransactionLogs) JsonObjectMapper.toObject(transactionLogsJsonString, TransactionLogs.class);
-		Event event = EventConvertor.toEvents(transactionLogs);
-		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		TransactionLogs mergedOptimalTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogs, optimalTransactionLogs);
-		return ResponseBuilder.respond(mergedOptimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
+	public static String reoptimizeTransactions(final String transactionsJson, final boolean prettify) {
+		Transactions transactions = (Transactions) JsonObjectMapper.toObject(transactionsJson, Transactions.class);
+		Event event = EventConvertor.convert(transactions);
+		Transactions optimalTransactions = TransactionCalculator.getTransactions(event, EventConstants.DEFAULT_MODE);
+		Transactions mergedOptimalTransactions = TransactionConverter.merge(transactions, optimalTransactions);
+		return ResponseBuilder.respond(mergedOptimalTransactions, Transactions.class, TransactionConstants.OPTIMAL_TRANSACTION_RESPONSE_TYPE,  prettify);
 	} 
 	
 	
-	public static String reoptimizeTransactionLogs(final HashMap<Long, HashMap<Long, Double>> transactionLogsMap,  final boolean prettify) {
-		Event event = EventConvertor.toEvents(transactionLogsMap);
-		TransactionLogs optimalTransactionLogs = TransactionCalculator.getTransactionLogs(event, EventConstants.DEFAULT_MODE);
-		TransactionLogs mergedOptimalTransactionLogs = TransactionLogConverter.mergeTransactionLogs(transactionLogsMap, optimalTransactionLogs);
-		return ResponseBuilder.respond(mergedOptimalTransactionLogs, TransactionLogs.class, TransactionLogConstants.OPTIMAL_TRANSACTION_LOGS_RESPONSE_TYPE,  prettify);
+	public static String reoptimizeTransactions(final HashMap<Long, HashMap<Long, Double>> transactions,  final boolean prettify) {
+		Event event = EventConvertor.convert(transactions);
+		Transactions optimalTransactions = TransactionCalculator.getTransactions(event, EventConstants.DEFAULT_MODE);
+		Transactions mergedOptimalTransactions = TransactionConverter.merge(transactions, optimalTransactions);
+		return ResponseBuilder.respond(mergedOptimalTransactions, Transactions.class, TransactionConstants.OPTIMAL_TRANSACTION_RESPONSE_TYPE,  prettify);
 	}
 	
 	

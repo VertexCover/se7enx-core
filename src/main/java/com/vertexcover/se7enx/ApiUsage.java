@@ -15,8 +15,8 @@ public class ApiUsage
     public static void main( String[] args ) {
     	
     	/*
-    	String transactionLogsJsonString = "{\"eventMode\":\"equalSharingMode\",\"transactionLogs\":[{\"fromUserId\":1,\"toUserId\":2,\"amountToBePaid\":10.0},{\"fromUserId\":2,\"toUserId\":3,\"amountToBePaid\":10.0},{\"fromUserId\":3,\"toUserId\":1,\"amountToBePaid\":10.0}]}";
-    	String response = CoreAPI.getCyclelessTransactionLogs(transactionLogsJsonString, false);
+    	String transactionsJsonString = "{\"eventMode\":\"equalSharingMode\",\"transactionLogs\":[{\"fromUserId\":1,\"toUserId\":2,\"amountToBePaid\":10.0},{\"fromUserId\":2,\"toUserId\":3,\"amountToBePaid\":10.0},{\"fromUserId\":3,\"toUserId\":1,\"amountToBePaid\":10.0}]}";
+    	String response = CoreAPI.getCyclelessTransactions(transactionLogsJsonString, false);
     	System.out.println(response);
     	
     	Response responseObj = (Response)JsonObjectMapper.toObject(response, Response.class);
@@ -31,17 +31,17 @@ public class ApiUsage
     	adjacencyMap.put((long) 1, oneFriends);
     	
     	HashMap<Long, Double> twoFriends = new HashMap<Long, Double>();
-    	twoFriends.put((long) 3, 10.0);
+    	twoFriends.put((long) 1, 50.0);
     	adjacencyMap.put((long) 2, twoFriends);
     	
     	HashMap<Long, Double> threeFriends = new HashMap<Long, Double>();
-    	threeFriends.put((long) 1, 10.0);
+    	threeFriends.put((long) 1, 102.0);
     	adjacencyMap.put((long) 3, threeFriends);
     	
     	String response = CoreAPI.doesCycleExist(adjacencyMap, true);
     	System.out.println(response);
     	
-    	String responseTransactions = CoreAPI.reoptimizeTransactionLogs(adjacencyMap, false);
+    	String responseTransactions = CoreAPI.reoptimizeTransactions(adjacencyMap, false);
     	Response responseObj = (Response)JsonObjectMapper.toObject(responseTransactions, Response.class);
     	System.out.println(responseObj.getResponse());
     	

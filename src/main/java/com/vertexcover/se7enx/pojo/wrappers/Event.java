@@ -2,12 +2,12 @@ package com.vertexcover.se7enx.pojo.wrappers;
 
 import java.util.List;
 
-import com.vertexcover.se7enx.pojo.units.EventUnit;
+import com.vertexcover.se7enx.pojo.units.EventEntry;
 
 public class Event {
 	
 	private String eventMode;
-	private List<EventUnit> eventUnits;
+	private List<EventEntry> eventEntries;
 	
 	
 	public String getEventMode() {
@@ -19,12 +19,12 @@ public class Event {
 	}
 	
 	
-	public List<EventUnit> getEventUnits() {
-		return eventUnits;
+	public List<EventEntry> getEventEntries() {
+		return eventEntries;
 	}
 	
-	public void setEventUnits(List<EventUnit> eventUnits) {
-		this.eventUnits = eventUnits;
+	public void setEventEntries(List<EventEntry> eventEntries) {
+		this.eventEntries = eventEntries;
 	}
 
 }

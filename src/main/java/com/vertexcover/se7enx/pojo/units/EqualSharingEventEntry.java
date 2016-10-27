@@ -1,10 +1,9 @@
 package com.vertexcover.se7enx.pojo.units;
 
-public class IndividualExpenseEventUnit {
+public class EqualSharingEventEntry {
 	
 	private long userId;
 	private double amountPaid;
-	private double amountToBePaid;
 	
 	
 	public long getUserId() {
@@ -22,13 +21,4 @@ public class IndividualExpenseEventUnit {
 		this.amountPaid = amountPaid;
 	}	
 
-	
-	public double getAmountToBePaid() {
-		return amountToBePaid;
-	}
-	
-	public void setAmountToBePaid(double amountToBePaid) {
-		this.amountToBePaid = amountToBePaid;
-	}
-	
 }

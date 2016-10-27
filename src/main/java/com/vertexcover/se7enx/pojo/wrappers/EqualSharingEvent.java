@@ -2,18 +2,18 @@ package com.vertexcover.se7enx.pojo.wrappers;
 
 import java.util.List;
 
-import com.vertexcover.se7enx.pojo.units.EqualSharingEventUnit;
+import com.vertexcover.se7enx.pojo.units.EqualSharingEventEntry;
 
 public class EqualSharingEvent {
 	
-	private List<EqualSharingEventUnit> eventDetails;
+	private List<EqualSharingEventEntry> eventEntries;
 
-	public List<EqualSharingEventUnit> getEventDetails() {
-		return eventDetails;
+	public List<EqualSharingEventEntry> getEventEntries() {
+		return eventEntries;
 	}
 
-	public void setEventDetails(List<EqualSharingEventUnit> eventDetails) {
-		this.eventDetails = eventDetails;
+	public void setEventDetails(List<EqualSharingEventEntry> eventEntries) {
+		this.eventEntries = eventEntries;
 	}
 
 }

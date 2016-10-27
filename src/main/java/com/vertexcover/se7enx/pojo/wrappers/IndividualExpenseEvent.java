@@ -1,19 +1,18 @@
 package com.vertexcover.se7enx.pojo.wrappers;
 
 import java.util.List;
-
-import com.vertexcover.se7enx.pojo.units.IndividualExpenseEventUnit;
+import com.vertexcover.se7enx.pojo.units.IndividualExpenseEventEntry;
 
 public class IndividualExpenseEvent {
 	
-	private List<IndividualExpenseEventUnit> eventDetails;
+	private List<IndividualExpenseEventEntry> eventEntries;
 
-	public List<IndividualExpenseEventUnit> getEventDetails() {
-		return eventDetails;
+	public List<IndividualExpenseEventEntry> getEventEntries() {
+		return eventEntries;
 	}
 
-	public void setEventUnits(List<IndividualExpenseEventUnit> eventDetails) {
-		this.eventDetails = eventDetails;
+	public void setEventUnits(List<IndividualExpenseEventEntry> eventEntries) {
+		this.eventEntries = eventEntries;
 	}
 	
 }

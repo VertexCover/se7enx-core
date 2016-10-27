@@ -1,7 +1,7 @@
 package com.vertexcover.se7enx.core.response;
 
 import com.vertexcover.se7enx.core.helpers.JsonObjectMapper;
-import com.vertexcover.se7enx.pojo.wrappers.TransactionLogs;
+import com.vertexcover.se7enx.pojo.wrappers.Transactions;
 
 public class ResponseBuilder {
 
